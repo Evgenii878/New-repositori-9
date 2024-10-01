@@ -1,40 +1,60 @@
 package ru.netology.stats;
 public class StatsService {
-    public long sumSales(long[] sales) {
-        long totaSale = 0;
-        for (long sale : sales) {
-          totaSale += sale;
+    public long sumAllSales(long[] sales) {
+        long sum = 0;
+        for (int i = 0; i < sales.length; i++) {
+            sum = sum + sales[i];
         }
-        return totaSale;
+        return sum;
     }
-    public long averageSale(long[] sales) {
-        return sumSales(sales) / sales.length;
+
+    public double averageSumSales(long[] sales) {
+        double averageSum = 0;
+        for (int i = 0; i < sales.length; i++) {
+            averageSum = (averageSum + sales[i]);
+        }
+        return averageSum / sales.length;
     }
-    public int calcMonthMaximumSale(long[] sales) {
-        int montMaximum = 0;
-        for (int i = 0; i < sales.length; i++ ) {
-            if (sales[i] >= sales[montMaximum]) {
-                montMaximum = i;
+
+    public long maxSales(long[] sales) {
+        int maxMonth = 0;
+
+        for (int i = 0; i < sales.length; i++) {
+            if (sales[i] >= sales[maxMonth]) {
+                maxMonth = i;
             }
         }
-        return montMaximum + 1;
+        return maxMonth + 1;
     }
-    public int calcMonthMinimumSale(long[] sales) {
-        int montMinimum = 0;
-        for (int i = 0; i < sales.length; i++ ) {
-            if (sales[i] <= sales[montMinimum]) {
-                montMinimum = i;
+
+    public long minSales(long[] sales) {
+        int minMonth = 0;
+
+        for (int i = 0; i < sales.length; i++) {
+            if (sales[i] <= sales[minMonth]) {
+                minMonth = i;
             }
         }
-        return montMinimum + 1;
+        return minMonth + 1;
     }
-    public int calcMonthsBellowAverage(long[] sales) {
-        int counter = 0;
-        long average = averageSale(sales);
-        for (long sale : sales) {
-            if (sale < average) {
-                counter++;
-            }
+
+    public int salesBelowAverage(long[] sales) {
+        int belowAverageMonth = 0;
+        double averageSum = averageSumSales(sales);
+        for (int i = 0; i < sales.length; i++) {
+            if (sales[i] < averageSum)
+                belowAverageMonth += 1;
         }
-        return counter;
+        return belowAverageMonth;
     }
+
+    public int salesAboveAverage(long[] sales) {
+        int aboveAverageMonth = 0;
+        double averageSum = averageSumSales(sales);
+        for (int i = 0; i < sales.length; i++) {
+            if (sales[i] > averageSum)
+                aboveAverageMonth += 1;
+        }
+        return aboveAverageMonth;
+    }
+}
